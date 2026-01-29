@@ -391,7 +391,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import '../assets/gm_mode.css';
-import { api, toAssetUrl, wsBase } from '../lib/api';
+import { api, toAssetUrl, wsBase, BASE_PATH } from '../lib/api';
 
 type Session = { id: string; title: string; scenarioId?: string | null; scenario?: { title?: string | null } | null; tenantId: string; tensionLabels?: Record<string, string>; tensionColors?: Record<string, string>; tensionAudio?: Record<string, string | null>; tensionEnabled?: boolean; tensionFont?: string | null };
 type SceneAsset = { name: string; order?: number };
@@ -1064,7 +1064,12 @@ const openFront = async () => {
     frontOnline.value = false;
     connectSocket();
   }
-  window.open(`http://localhost:3001/t/${encodeURIComponent(tenantId.value)}/player_view?session=${encodeURIComponent(selectedSessionId.value)}`, '_blank');
+  const basePath = BASE_PATH.endsWith('/') ? BASE_PATH.slice(0, -1) : BASE_PATH;
+  const origin = import.meta.env.VITE_PUBLIC_URL || window.location.origin;
+  window.open(
+    `${origin}${basePath}/t/${encodeURIComponent(tenantId.value)}/player_view?session=${encodeURIComponent(selectedSessionId.value)}`,
+    '_blank'
+  );
 };
 
 const carouselPrev = () => {

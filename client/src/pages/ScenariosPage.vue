@@ -91,12 +91,14 @@
                       <i class="text-emerald-500" :class="sess.icon || defaultSessionIcon"></i>
                       <span class="font-semibold truncate">{{ sess.title || t('common.untitled') }}</span>
                     </router-link>
-                    <button
+                    <router-link
                       class="h-7 w-7 inline-flex items-center justify-center rounded-lg border border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition"
-                      @click="openSessionEditModal(sess, scenario.id)"
+                      :to="`/app/sessions/${sess.id}/gm`"
+                      :title="t('sessionNav.gm')"
+                      :aria-label="t('sessionNav.gm')"
                     >
-                      <i class="fa-solid fa-pen"></i>
-                    </button>
+                      <i class="fa-solid fa-play"></i>
+                    </router-link>
                   </div>
                 </div>
                 <div v-if="scenario.sessions.length === 0" class="text-xs text-slate-400">
