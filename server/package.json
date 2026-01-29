@@ -7,7 +7,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node --experimental-specifier-resolution=node dist/index.js",
     "lint": "eslint .",
-    "migrate:uploads": "tsx scripts/migrateUploadsToTenant.ts"
+    "migrate:uploads": "tsx scripts/migrateUploadsToTenant.ts",
+    "migrate:legacy": "tsx scripts/migrateLegacy.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",

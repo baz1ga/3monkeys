@@ -7,3 +7,4 @@ server/prisma/dev.db-journal
 server/dist/
 server/uploads/
 client/dist/
+.tmp_*
