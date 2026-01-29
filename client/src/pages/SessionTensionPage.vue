@@ -141,6 +141,7 @@
 import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
+import { api } from '../lib/api';
 
 type AudioAsset = { name: string };
 

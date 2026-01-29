@@ -391,6 +391,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import '../assets/gm_mode.css';
+import { api, toAssetUrl, wsBase } from '../lib/api';
 
 type Session = { id: string; title: string; scenarioId?: string | null; scenario?: { title?: string | null } | null; tenantId: string; tensionLabels?: Record<string, string>; tensionColors?: Record<string, string>; tensionAudio?: Record<string, string | null>; tensionEnabled?: boolean; tensionFont?: string | null };
 type SceneAsset = { name: string; order?: number };
@@ -486,13 +487,13 @@ const ensureSelectedSession = () => {
 };
 
 const fetchSessions = async () => {
-  const res = await fetch('http://localhost:3100/api/sessions', { credentials: 'include' });
+  const res = await fetch(api('/api/sessions'), { credentials: 'include' });
   sessions.value = res.ok ? await res.json() : [];
   ensureSelectedSession();
 };
 
 const fetchScenes = async (sessionId: string) => {
-  const res = await fetch(`http://localhost:3100/api/scenes?sessionId=${encodeURIComponent(sessionId)}`, { credentials: 'include' });
+  const res = await fetch(api(`/api/scenes?sessionId=${encodeURIComponent(sessionId)}`), { credentials: 'include' });
   const list = res.ok ? await res.json() : [];
   scenes.value = Array.isArray(list) ? list.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)) : [];
   if (scenes.value.length) {
@@ -506,9 +507,9 @@ const fetchScenes = async (sessionId: string) => {
 };
 
 const fetchAssets = async () => {
-  const res = await fetch('http://localhost:3100/api/assets?type=image', { credentials: 'include' });
+  const res = await fetch(api('/api/assets?type=image'), { credentials: 'include' });
   tenantImages.value = res.ok ? await res.json() : [];
-  const resAudio = await fetch('http://localhost:3100/api/assets?type=audio', { credentials: 'include' });
+  const resAudio = await fetch(api('/api/assets?type=audio'), { credentials: 'include' });
   tenantAudio.value = resAudio.ok ? await resAudio.json() : [];
 };
 
@@ -517,14 +518,14 @@ const loadNotes = async () => {
     notesBuffer.value = '';
     return;
   }
-  const res = await fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(selectedSceneId.value)}/note`, { credentials: 'include' });
+  const res = await fetch(api(`/api/scenes/${encodeURIComponent(selectedSceneId.value)}/note`), { credentials: 'include' });
   const data = res.ok ? await res.json() : {};
   notesBuffer.value = data?.content || '';
 };
 
 const saveNotes = async () => {
   if (!selectedSceneId.value) return;
-  await fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(selectedSceneId.value)}/note`, {
+  await fetch(api(`/api/scenes/${encodeURIComponent(selectedSceneId.value)}/note`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -542,7 +543,7 @@ watch(notesBuffer, () => queueNotesSave());
 const assetSrc = (url: string) => {
   if (!url) return '';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `http://localhost:3100${url}`;
+  return toAssetUrl(url);
 };
 
 const findImageAsset = (ref: string) => {
@@ -703,7 +704,7 @@ const nextSlide = () => {
 
 const loadTensionConfig = async () => {
   if (!selectedSessionId.value) return;
-  const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(selectedSessionId.value)}`, { credentials: 'include' });
+  const res = await fetch(api(`/api/sessions/${encodeURIComponent(selectedSessionId.value)}`), { credentials: 'include' });
   if (!res.ok) return;
   const data = await res.json();
   const labels = data?.tensionLabels || {};
@@ -769,7 +770,7 @@ const changeTension = (delta: number) => {
 const playTension = async (levelKey: string) => {
   selectedTension.value = levelKey;
   if (selectedSessionId.value) {
-    await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(selectedSessionId.value)}/gm-state`, {
+    await fetch(api(`/api/sessions/${encodeURIComponent(selectedSessionId.value)}/gm-state`), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -793,7 +794,7 @@ const playTension = async (levelKey: string) => {
 
 const loadTimer = async () => {
   if (!selectedSessionId.value) return;
-  const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(selectedSessionId.value)}/gm-state`, { credentials: 'include' });
+  const res = await fetch(api(`/api/sessions/${encodeURIComponent(selectedSessionId.value)}/gm-state`), { credentials: 'include' });
   const data = res.ok ? await res.json() : {};
   if (typeof data?.tensionLevel === 'string') {
     selectedTension.value = data.tensionLevel;
@@ -828,7 +829,7 @@ const loadTimer = async () => {
 
 const saveTimer = async () => {
   if (!selectedSessionId.value) return;
-  await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(selectedSessionId.value)}/timer`, {
+  await fetch(api(`/api/sessions/${encodeURIComponent(selectedSessionId.value)}/timer`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -957,7 +958,7 @@ const applyHourglassDuration = () => {
 
 const saveHourglassPrefs = async () => {
   if (!selectedSessionId.value) return;
-  await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(selectedSessionId.value)}/hourglass`, {
+  await fetch(api(`/api/sessions/${encodeURIComponent(selectedSessionId.value)}/hourglass`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -993,7 +994,7 @@ const connectSocket = () => {
   if (!tenantId.value) return;
   allowReconnect = true;
   if (socket) socket.close();
-  socket = new WebSocket(`ws://localhost:3100/ws?tenantId=${encodeURIComponent(tenantId.value)}&role=gm`);
+  socket = new WebSocket(`${wsBase()}/ws?tenantId=${encodeURIComponent(tenantId.value)}&role=gm`);
   socket.onopen = () => {
     if (selectedSessionId.value) {
       socket?.send(JSON.stringify({ type: 'presence:hello', sessionId: selectedSessionId.value }));
@@ -1053,7 +1054,7 @@ const connectSocket = () => {
 
 const openFront = async () => {
   if (!tenantId.value) return;
-  await fetch('http://localhost:3100/api/session-runs', {
+  await fetch(api('/api/session-runs'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

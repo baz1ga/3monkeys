@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { api } from '../lib/api';
 
 type UserPayload = {
   id: string;
@@ -37,7 +38,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:3100/auth/me', { credentials: 'include' });
+    const res = await fetch(api('/auth/me'), { credentials: 'include' });
     if (res.ok) {
       user.value = await res.json();
     }

@@ -497,6 +497,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { DEFAULT_SCENARIO_ICON, DEFAULT_SESSION_ICON, filterIcons } from '../lib/iconPicker';
+import { api } from '../lib/api';
 
 type ScenarioSession = {
   id: string;
@@ -575,7 +576,7 @@ const filteredIcons = (query: string) => filterIcons(query);
 const fetchScenarios = async () => {
   loading.value = true;
   try {
-    const res = await fetch('http://localhost:3100/api/scenarios', { credentials: 'include' });
+    const res = await fetch(api('/api/scenarios'), { credentials: 'include' });
     if (!res.ok) throw new Error('load');
     const data = await res.json();
     scenarios.value = Array.isArray(data)
@@ -611,7 +612,7 @@ const submitCreate = async () => {
   createModal.saving = true;
   createModal.error = '';
   try {
-    const res = await fetch('http://localhost:3100/api/scenarios', {
+    const res = await fetch(api('/api/scenarios'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -645,7 +646,7 @@ const submitEdit = async () => {
   editModal.saving = true;
   editModal.error = '';
   try {
-    const res = await fetch(`http://localhost:3100/api/scenarios/${encodeURIComponent(editModal.id)}`, {
+    const res = await fetch(api(`/api/scenarios/${encodeURIComponent(editModal.id)}`), {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -675,7 +676,7 @@ const closeConfirm = () => {
 const confirmDelete = async () => {
   if (!confirmModal.id) return;
   try {
-    const res = await fetch(`http://localhost:3100/api/scenarios/${encodeURIComponent(confirmModal.id)}`, {
+    const res = await fetch(api(`/api/scenarios/${encodeURIComponent(confirmModal.id)}`), {
       method: 'DELETE',
       credentials: 'include'
     });
@@ -708,7 +709,7 @@ const submitSessionCreate = async () => {
   sessionCreateModal.saving = true;
   sessionCreateModal.error = '';
   try {
-    const res = await fetch('http://localhost:3100/api/sessions', {
+    const res = await fetch(api('/api/sessions'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -751,7 +752,7 @@ const submitSessionEdit = async () => {
   sessionEditModal.saving = true;
   sessionEditModal.error = '';
   try {
-    const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionEditModal.id)}`, {
+    const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionEditModal.id)}`), {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -787,7 +788,7 @@ const closeSessionDeleteConfirm = () => {
 const confirmSessionDelete = async () => {
   if (!sessionConfirmModal.id) return;
   try {
-    await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionConfirmModal.id)}`, {
+    await fetch(api(`/api/sessions/${encodeURIComponent(sessionConfirmModal.id)}`), {
       method: 'DELETE',
       credentials: 'include'
     });

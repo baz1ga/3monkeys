@@ -164,6 +164,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { api } from '../lib/api';
 
 type Scenario = { id: string; title: string };
 type Session = { id: string; title: string; scenarioId?: string | null };
@@ -184,22 +185,22 @@ const editContent = ref('');
 const looksLikeNoteId = (value: string) => /^c[a-z0-9]{24,}$/i.test(value);
 
 const fetchNotes = async () => {
-  const res = await fetch('http://localhost:3100/api/notes', { credentials: 'include' });
+  const res = await fetch(api('/api/notes'), { credentials: 'include' });
   notes.value = res.ok ? await res.json() : [];
 };
 
 const fetchScenarios = async () => {
-  const res = await fetch('http://localhost:3100/api/scenarios', { credentials: 'include' });
+  const res = await fetch(api('/api/scenarios'), { credentials: 'include' });
   scenarios.value = res.ok ? await res.json() : [];
 };
 
 const fetchSessions = async () => {
-  const res = await fetch('http://localhost:3100/api/sessions', { credentials: 'include' });
+  const res = await fetch(api('/api/sessions'), { credentials: 'include' });
   sessions.value = res.ok ? await res.json() : [];
 };
 
 const fetchScenes = async () => {
-  const res = await fetch('http://localhost:3100/api/scenes', { credentials: 'include' });
+  const res = await fetch(api('/api/scenes'), { credentials: 'include' });
   scenes.value = res.ok ? await res.json() : [];
 };
 
@@ -211,7 +212,7 @@ const migrateLegacyNotes = async () => {
     if (noteIds.has(raw)) continue;
     if (looksLikeNoteId(raw)) continue;
     try {
-      const createRes = await fetch('http://localhost:3100/api/notes', {
+      const createRes = await fetch(api('/api/notes'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -222,7 +223,7 @@ const migrateLegacyNotes = async () => {
       });
       if (!createRes.ok) continue;
       const created = await createRes.json();
-      await fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(scene.id)}`, {
+      await fetch(api(`/api/scenes/${encodeURIComponent(scene.id)}`), {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -333,7 +334,7 @@ const grouped = computed(() => {
 const openEdit = async (note: Note) => {
   activeNote.value = note;
   try {
-    const res = await fetch(`http://localhost:3100/api/notes/${encodeURIComponent(note.id)}`, { credentials: 'include' });
+    const res = await fetch(api(`/api/notes/${encodeURIComponent(note.id)}`), { credentials: 'include' });
     const data = res.ok ? await res.json() : null;
     editContent.value = data?.content || '';
   } catch {
@@ -345,7 +346,7 @@ const openEdit = async (note: Note) => {
 const saveEdit = async () => {
   if (!activeNote.value) return;
   try {
-    await fetch(`http://localhost:3100/api/notes/${encodeURIComponent(activeNote.value.id)}`, {
+    await fetch(api(`/api/notes/${encodeURIComponent(activeNote.value.id)}`), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -365,7 +366,7 @@ const openDelete = (note: Note) => {
 const confirmDelete = async () => {
   if (!activeNote.value) return;
   try {
-    await fetch(`http://localhost:3100/api/notes/${encodeURIComponent(activeNote.value.id)}`, {
+    await fetch(api(`/api/notes/${encodeURIComponent(activeNote.value.id)}`), {
       method: 'DELETE',
       credentials: 'include'
     });

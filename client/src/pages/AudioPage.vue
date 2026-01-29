@@ -159,6 +159,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { api, toAssetUrl } from '../lib/api';
 
 const { t } = useI18n();
 
@@ -204,13 +205,13 @@ const confirmModal = ref<ConfirmModalState>({
 const assetSrc = (url: string) => {
   if (!url) return '';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `http://localhost:3100${url}`;
+  return toAssetUrl(url);
 };
 
 const loadAudio = async () => {
   audioLoading.value = true;
   try {
-    const res = await fetch('http://localhost:3100/api/assets?type=audio', { credentials: 'include' });
+    const res = await fetch(api('/api/assets?type=audio'), { credentials: 'include' });
     if (!res.ok) throw new Error('Audio');
     audioFiles.value = await res.json();
     audioStatus.value = 'ok';
@@ -242,7 +243,7 @@ const uploadAudio = async (event: Event) => {
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('http://localhost:3100/api/assets/audio/upload', {
+      const res = await fetch(api('/api/assets/audio/upload'), {
         method: 'POST',
         credentials: 'include',
         body: form
@@ -289,7 +290,7 @@ const onAudioDrop = async (index: number) => {
   audioDragIndex.value = null;
   audioDragOverIndex.value = null;
   audioFiles.value = list;
-  await fetch('http://localhost:3100/api/assets/order', {
+  await fetch(api('/api/assets/order'), {
     method: 'PUT',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -324,7 +325,7 @@ const confirmRenameAudio = async () => {
   }
   renameAudioModal.value.error = '';
   try {
-    const res = await fetch(`http://localhost:3100/api/assets/${encodeURIComponent(id)}`, {
+    const res = await fetch(api(`/api/assets/${encodeURIComponent(id)}`), {
       method: 'PATCH',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -357,7 +358,7 @@ const closeConfirm = () => {
 const confirmYes = async () => {
   if (!confirmModal.value.id) return;
   try {
-    await fetch(`http://localhost:3100/api/assets/${encodeURIComponent(confirmModal.value.id)}`, {
+    await fetch(api(`/api/assets/${encodeURIComponent(confirmModal.value.id)}`), {
       method: 'DELETE',
       credentials: 'include'
     });

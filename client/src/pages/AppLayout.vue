@@ -265,6 +265,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from '../i18n';
+import { api } from '../lib/api';
 
 const router = useRouter();
 const route = useRoute();
@@ -320,7 +321,7 @@ const isAdmin = computed(() => (user.value?.role || '').toUpperCase() === 'ADMIN
 
 const fetchScenarioNav = async () => {
   try {
-    const res = await fetch('http://localhost:3100/api/scenarios', { credentials: 'include' });
+    const res = await fetch(api('/api/scenarios'), { credentials: 'include' });
     if (!res.ok) throw new Error('load');
     const data = await res.json();
     scenarioNav.value = Array.isArray(data)
@@ -338,7 +339,7 @@ const fetchScenarioNav = async () => {
 
 const fetchUsage = async () => {
   try {
-    const res = await fetch('http://localhost:3100/api/tenant/usage', { credentials: 'include' });
+    const res = await fetch(api('/api/tenant/usage'), { credentials: 'include' });
     if (!res.ok) throw new Error('usage');
     const data = await res.json();
     usageBytes.value = Number(data?.usageBytes || 0);
@@ -350,7 +351,7 @@ const fetchUsage = async () => {
 
 const logout = async () => {
   try {
-    await fetch('http://localhost:3100/auth/logout', { method: 'POST', credentials: 'include' });
+    await fetch(api('/auth/logout'), { method: 'POST', credentials: 'include' });
   } finally {
     await router.replace('/');
   }
@@ -360,7 +361,7 @@ onMounted(async () => {
   const savedTheme = localStorage.getItem('sw_theme');
   applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
   try {
-    const res = await fetch('http://localhost:3100/auth/me', { credentials: 'include' });
+    const res = await fetch(api('/auth/me'), { credentials: 'include' });
     if (!res.ok) {
       await router.replace('/');
       return;

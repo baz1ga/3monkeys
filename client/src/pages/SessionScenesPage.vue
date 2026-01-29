@@ -416,6 +416,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import UploadModal from '../components/modals/UploadModal.vue';
+import { api, toAssetUrl } from '../lib/api';
 
 type Asset = { id: string; name: string; url: string; thumbUrl?: string | null; hidden?: boolean };
 type SceneAsset = { name: string; order?: number };
@@ -467,7 +468,7 @@ const audioUploadStatus = ref<'ok' | 'error'>('ok');
 const assetUrl = (url?: string | null) => {
   if (!url) return '';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `http://localhost:3100${url}`;
+  return toAssetUrl(url);
 };
 
 const normalizeAssets = (value?: SceneAsset[] | null) => {
@@ -479,13 +480,13 @@ const findAsset = (name: string) => imageAssets.value.find(a => a.url === name |
 const findAudio = (name: string) => audioAssets.value.find(a => a.url.includes(name) || a.name === name);
 
 const fetchSession = async () => {
-  const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, { credentials: 'include' });
+  const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), { credentials: 'include' });
   if (!res.ok) throw new Error('session');
   session.value = await res.json();
 };
 
 const fetchScenes = async () => {
-  const res = await fetch(`http://localhost:3100/api/scenes?sessionId=${encodeURIComponent(sessionId.value)}`, { credentials: 'include' });
+  const res = await fetch(api(`/api/scenes?sessionId=${encodeURIComponent(sessionId.value)}`), { credentials: 'include' });
   if (!res.ok) throw new Error('scenes');
   const list = await res.json();
   scenes.value = Array.isArray(list) ? list : [];
@@ -503,8 +504,8 @@ const fetchScenes = async () => {
 
 const fetchAssets = async () => {
   const [imagesRes, audioRes] = await Promise.all([
-    fetch('http://localhost:3100/api/assets?type=image', { credentials: 'include' }),
-    fetch('http://localhost:3100/api/assets?type=audio', { credentials: 'include' })
+    fetch(api('/api/assets?type=image'), { credentials: 'include' }),
+    fetch(api('/api/assets?type=audio'), { credentials: 'include' })
   ]);
   imageAssets.value = imagesRes.ok ? await imagesRes.json() : [];
   audioAssets.value = audioRes.ok ? await audioRes.json() : [];
@@ -523,7 +524,7 @@ const loadNoteForScene = async (scene: Scene | null) => {
       notesBuffer.value = '';
       return;
     }
-    const res = await fetch(`http://localhost:3100/api/notes/${encodeURIComponent(scene.notes)}`, { credentials: 'include' });
+    const res = await fetch(api(`/api/notes/${encodeURIComponent(scene.notes)}`), { credentials: 'include' });
     if (!res.ok) {
       notesBuffer.value = scene.notes || '';
       return;
@@ -636,7 +637,7 @@ const submitScene = async () => {
     sceneModal.value.error = t('scenes.errors.titleRequired');
     return;
   }
-  const res = await fetch('http://localhost:3100/api/scenes', {
+  const res = await fetch(api('/api/scenes'), {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -667,7 +668,7 @@ const submitSceneEdit = async () => {
     sceneEditModal.value.error = t('scenes.errors.titleRequired');
     return;
   }
-  const res = await fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(currentScene.value.id)}`, {
+  const res = await fetch(api(`/api/scenes/${encodeURIComponent(currentScene.value.id)}`), {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -691,7 +692,7 @@ const closeDeleteConfirm = () => {
 
 const deleteScene = async () => {
   if (!currentScene.value) return;
-  await fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(currentScene.value.id)}`, {
+  await fetch(api(`/api/scenes/${encodeURIComponent(currentScene.value.id)}`), {
     method: 'DELETE',
     credentials: 'include'
   });
@@ -701,7 +702,7 @@ const deleteScene = async () => {
 };
 
 const duplicateScene = async (scene: Scene) => {
-  const res = await fetch('http://localhost:3100/api/scenes', {
+  const res = await fetch(api('/api/scenes'), {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -729,7 +730,7 @@ const moveScene = async (index: number, dir: number) => {
   currentSceneId.value = item.id;
   await Promise.all(
     scenes.value.map(scene =>
-      fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(scene.id)}`, {
+      fetch(api(`/api/scenes/${encodeURIComponent(scene.id)}`), {
         method: 'PATCH',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -741,7 +742,7 @@ const moveScene = async (index: number, dir: number) => {
 
 const updateSceneAssets = async (payload: Partial<Pick<Scene, 'images' | 'audio' | 'notes'>>) => {
   if (!currentScene.value) return;
-  await fetch(`http://localhost:3100/api/scenes/${encodeURIComponent(currentScene.value.id)}`, {
+  await fetch(api(`/api/scenes/${encodeURIComponent(currentScene.value.id)}`), {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -803,7 +804,7 @@ const uploadSceneAudio = async (event: Event) => {
     for (const file of files) {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await fetch('http://localhost:3100/api/assets/audio/upload', {
+      const res = await fetch(api('/api/assets/audio/upload'), {
         method: 'POST',
         credentials: 'include',
         body: formData
@@ -826,7 +827,7 @@ const saveNotes = async () => {
   const existingNoteId = currentScene.value.notes || '';
   try {
     if (existingNoteId) {
-      const updateRes = await fetch(`http://localhost:3100/api/notes/${encodeURIComponent(existingNoteId)}`, {
+      const updateRes = await fetch(api(`/api/notes/${encodeURIComponent(existingNoteId)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -841,7 +842,7 @@ const saveNotes = async () => {
       notesBuffer.value = '';
       return;
     }
-    const createRes = await fetch('http://localhost:3100/api/notes', {
+    const createRes = await fetch(api('/api/notes'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -858,7 +859,7 @@ const saveNotes = async () => {
 const uploadFile = async (file: File) => {
   const formData = new FormData();
   formData.append('file', file);
-  const res = await fetch('http://localhost:3100/api/assets/upload', {
+  const res = await fetch(api('/api/assets/upload'), {
     method: 'POST',
     credentials: 'include',
     body: formData

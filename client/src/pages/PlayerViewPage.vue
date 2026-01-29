@@ -46,6 +46,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import '../assets/player_view.css';
 import '../lib/hourglass.js';
+import { API_BASE, api, toAssetUrl, wsBase } from '../lib/api';
 
 const route = useRoute();
 
@@ -61,10 +62,9 @@ const toggleComm = () => {
 };
 
 const initPlayerView = (tenantId: string, sessionId: string | null) => {
-  const apiBase = 'http://localhost:3100';
-  const wsBase = apiBase.replace('http', 'ws');
-  const API_IMAGES = `${apiBase}/t/${encodeURIComponent(tenantId)}/api/images`;
-  const API_AUDIO = `${apiBase}/t/${encodeURIComponent(tenantId)}/api/audio`;
+  const wsRoot = wsBase();
+  const API_IMAGES = api(`/t/${encodeURIComponent(tenantId)}/api/images`);
+  const API_AUDIO = api(`/t/${encodeURIComponent(tenantId)}/api/audio`);
   const zone1Img = document.getElementById('zone1-img') as HTMLImageElement | null;
   const photoNumber = document.getElementById('photo-number') as HTMLDivElement | null;
   const tensionBar = document.querySelector('.tension-bar') as HTMLDivElement | null;
@@ -96,7 +96,7 @@ const initPlayerView = (tenantId: string, sessionId: string | null) => {
   const assetSrc = (url: string) => {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    return `${apiBase}${url}`;
+    return toAssetUrl(url);
   };
 
   const ensureAudioAssets = async () => {
@@ -352,9 +352,7 @@ const initPlayerView = (tenantId: string, sessionId: string | null) => {
       tensionSocket.close();
       tensionSocket = null;
     }
-    const wsProto = wsBase.startsWith('wss') ? 'wss' : 'ws';
-    const wsHost = wsBase.replace(/^wss?:\/\//, '');
-    const ws = new WebSocket(`${wsProto}://${wsHost}/ws?tenantId=${encodeURIComponent(tenantId)}&role=front`);
+    const ws = new WebSocket(`${wsRoot}/ws?tenantId=${encodeURIComponent(tenantId)}&role=front`);
     tensionSocket = ws;
     ws.onopen = () => {
       setGmControlled(true);
@@ -455,7 +453,7 @@ const initPlayerView = (tenantId: string, sessionId: string | null) => {
 
   const loadTensionConfig = async () => {
     try {
-      const res = await fetch(`${apiBase}/t/${encodeURIComponent(tenantId)}/api/config`);
+      const res = await fetch(api(`/t/${encodeURIComponent(tenantId)}/api/config`));
       if (!res.ok) throw new Error('Config fetch failed');
       const data = await res.json();
       applyTensionState(data.tensionEnabled);
@@ -473,7 +471,7 @@ const initPlayerView = (tenantId: string, sessionId: string | null) => {
   const loadSessionConfig = async () => {
     if (!sessionId) return;
     try {
-      const res = await fetch(`${apiBase}/t/${encodeURIComponent(tenantId)}/api/sessions/${encodeURIComponent(sessionId)}`);
+      const res = await fetch(api(`/t/${encodeURIComponent(tenantId)}/api/sessions/${encodeURIComponent(sessionId)}`));
       if (!res.ok) return;
       const data = await res.json();
       applyTensionState(data.tensionEnabled);
@@ -488,7 +486,7 @@ const initPlayerView = (tenantId: string, sessionId: string | null) => {
 
   const loadTensionDefaults = async () => {
     try {
-      const res = await fetch(`${apiBase}/api/tension-default`);
+      const res = await fetch(api('/api/tension-default'));
       if (!res.ok) return;
       const data = await res.json();
       if (data?.tensionColors) defaultTensionColors = { ...defaultTensionColors, ...data.tensionColors };

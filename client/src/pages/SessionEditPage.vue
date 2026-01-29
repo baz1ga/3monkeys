@@ -122,6 +122,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { DEFAULT_SESSION_ICON, filterIcons } from '../lib/iconPicker';
+import { api } from '../lib/api';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -147,7 +148,7 @@ const fetchSession = async () => {
   loading.value = true;
   error.value = '';
   try {
-    const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, { credentials: 'include' });
+    const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), { credentials: 'include' });
     if (!res.ok) throw new Error('Not found');
     const data = await res.json();
     form.value.title = data.title || '';
@@ -163,7 +164,7 @@ const saveSession = async () => {
   if (!form.value.title.trim()) return;
   saving.value = true;
   try {
-    const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, {
+    const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), {
       method: 'PATCH',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -188,7 +189,7 @@ const closeConfirm = () => {
 
 const deleteSession = async () => {
   try {
-    await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, {
+    await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), {
       method: 'DELETE',
       credentials: 'include'
     });

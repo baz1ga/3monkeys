@@ -100,6 +100,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { api } from '../lib/api';
 import { useI18n } from 'vue-i18n';
 import { DEFAULT_SESSION_ICON } from '../lib/iconPicker';
 
@@ -111,7 +112,7 @@ const session = ref<{ id: string; title: string; icon?: string | null } | null>(
 
 const fetchSession = async () => {
   try {
-    const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, { credentials: 'include' });
+    const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), { credentials: 'include' });
     if (!res.ok) return;
     session.value = await res.json();
   } catch {

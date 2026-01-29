@@ -210,6 +210,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import UploadModal from '../components/modals/UploadModal.vue';
+import { api, toAssetUrl } from '../lib/api';
 
 const { t } = useI18n();
 
@@ -245,7 +246,7 @@ const filteredHidden = computed(() => {
 const fetchAssets = async () => {
   loading.value = true;
   try {
-    const res = await fetch('http://localhost:3100/api/assets?type=image', { credentials: 'include' });
+    const res = await fetch(api('/api/assets?type=image'), { credentials: 'include' });
     if (!res.ok) throw new Error('fetch');
     const data = await res.json();
     visible.value = data.filter((i: Asset) => !i.hidden);
@@ -284,7 +285,7 @@ const toggleSelectHidden = (id: string) => {
 
 const hideSelectedVisible = async () => {
   if (selectedVisible.value.length === 0) return;
-  await fetch('http://localhost:3100/api/assets/visibility', {
+  await fetch(api('/api/assets/visibility'), {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -296,7 +297,7 @@ const hideSelectedVisible = async () => {
 
 const showSelectedHidden = async () => {
   if (selectedHidden.value.length === 0) return;
-  await fetch('http://localhost:3100/api/assets/visibility', {
+  await fetch(api('/api/assets/visibility'), {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -323,7 +324,7 @@ const confirmDelete = async () => {
   if (!confirmDeleteIds.value.length) return;
   await Promise.all(
     confirmDeleteIds.value.map(id =>
-      fetch(`http://localhost:3100/api/assets/${encodeURIComponent(id)}`, {
+      fetch(api(`/api/assets/${encodeURIComponent(id)}`), {
         method: 'DELETE',
         credentials: 'include'
       })
@@ -357,7 +358,7 @@ const onDrop = async (index: number) => {
   dragIndex.value = null;
   dragOverIndex.value = null;
   visible.value = list;
-  await fetch('http://localhost:3100/api/assets/order', {
+  await fetch(api('/api/assets/order'), {
     method: 'PUT',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -377,14 +378,14 @@ const zoom = (url: string) => {
 const assetSrc = (url: string) => {
   if (!url) return '';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `http://localhost:3100${url}`;
+  return toAssetUrl(url);
 };
 
 const uploadFile = async (file: File) => {
   if (!file) return;
   const formData = new FormData();
   formData.append('file', file);
-  const res = await fetch('http://localhost:3100/api/assets/upload', {
+  const res = await fetch(api('/api/assets/upload'), {
     method: 'POST',
     credentials: 'include',
     body: formData

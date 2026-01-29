@@ -125,8 +125,9 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from '../i18n';
+import { api } from '../lib/api';
 
-const discordLoginUrl = 'http://localhost:3100/auth/discord/login';
+const discordLoginUrl = api('/auth/discord/login');
 const theme = ref<'light' | 'dark'>('light');
 const isDark = computed(() => theme.value === 'dark');
 const router = useRouter();
@@ -157,7 +158,7 @@ onMounted(() => {
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:3100/auth/me', { credentials: 'include' });
+    const res = await fetch(api('/auth/me'), { credentials: 'include' });
     if (res.ok) {
       await router.replace('/app');
     }
