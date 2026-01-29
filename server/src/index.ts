@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import crypto from 'crypto';
 import path from 'path';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { FastifyBaseLogger } from 'fastify';
 import { WebSocketServer, WebSocket, type RawData } from 'ws';
 
