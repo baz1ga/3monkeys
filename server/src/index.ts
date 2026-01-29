@@ -14,7 +14,7 @@ import { z } from 'zod';
 import fs from 'fs';
 import { pipeline } from 'stream/promises';
 import sharp from 'sharp';
-import { ensureDir, uniqueFilename, sanitizeName } from './utils';
+import { ensureDir, uniqueFilename, sanitizeName } from './utils.js';
 import { initWebsocket } from './websocket';
 import { createPresence } from './presence';
 
