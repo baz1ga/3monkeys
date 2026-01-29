@@ -19,6 +19,7 @@ import { initWebsocket } from './websocket.js';
 import { createPresence } from './presence.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientDistDir = path.resolve(__dirname, '..', '..', 'client', 'dist');
 dotenv.config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 const prisma = new PrismaClient();
@@ -159,6 +160,10 @@ await app.register(fastifyStatic, {
   root: uploadsDir,
   prefix: '/uploads/'
 });
+await app.register(fastifyStatic, {
+  root: clientDistDir,
+  prefix: '/'
+});
 
 await app.register(multipart, {
   limits: { fileSize: 40 * 1024 * 1024 }
@@ -204,6 +209,14 @@ declare module '@fastify/session' {
 }
 
 app.get('/health', async () => ({ ok: true }));
+
+app.setNotFoundHandler((req, reply) => {
+  const url = req.url || '';
+  if (url.startsWith('/api') || url.startsWith('/uploads') || url.startsWith('/ws')) {
+    return reply.code(404).send({ error: 'Not Found' });
+  }
+  return reply.sendFile('index.html', clientDistDir);
+});
 
 app.get('/api/tension-default', async (_req, reply) => {
   return reply.send({
