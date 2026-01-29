@@ -92,7 +92,7 @@
                       <span class="font-semibold truncate">{{ sess.title || t('common.untitled') }}</span>
                     </router-link>
                     <router-link
-                      class="h-7 w-7 inline-flex items-center justify-center rounded-lg border border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition"
+                      class="h-7 w-7 inline-flex items-center justify-center rounded-lg border border-indigo-300 text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
                       :to="`/app/sessions/${sess.id}/gm`"
                       :title="t('sessionNav.gm')"
                       :aria-label="t('sessionNav.gm')"
