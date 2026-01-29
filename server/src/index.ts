@@ -15,8 +15,8 @@ import fs from 'fs';
 import { pipeline } from 'stream/promises';
 import sharp from 'sharp';
 import { ensureDir, uniqueFilename, sanitizeName } from './utils.js';
-import { initWebsocket } from './websocket';
-import { createPresence } from './presence';
+import { initWebsocket } from './websocket.js';
+import { createPresence } from './presence.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '..', '.env') });
