@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Metal+Mania&family=Rye&family=Share+Tech+Mono&family=Bangers&family=Great+Vibes&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Pangolin';
+  src: url('/assets/font/Pangolin-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-pangolin {
+  font-family: 'Pangolin', 'Comic Sans MS', cursive;
+}
+
+[x-cloak] {
+  display: none !important;
+}

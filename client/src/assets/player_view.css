@@ -1,0 +1,266 @@
+
+/* ================================================
+   FRONT.CSS
+   ================================================ */
+
+/* RESET */
+body.player-view * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.player-view {
+  background: #222121;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 28px;
+}
+
+
+/* ================================================
+   📸 FRONT CARROUSEL
+   ================================================ */
+
+body.player-view {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+body.player-view #app,
+body.player-view .player-view-root {
+  width: 100%;
+  height: 100vh;
+}
+
+body.player-view .player-view-root {
+  display: flex;
+  flex-direction: row;
+}
+
+/* util */
+.hidden {
+  display: none !important;
+}
+
+/* Avertissement GM offline */
+#gm-offline-banner {
+  position: fixed;
+  inset: 0;
+  background: #0d1117;
+  color: #e5e7eb;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+}
+#gm-offline-banner .title {
+  font-size: 20px;
+  font-weight: 700;
+}
+#gm-offline-banner .subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+
+/* Zone 1 : image */
+.zone1 {
+  flex: 1;
+  width: auto;
+  height: 100vh;
+  border: 13px solid transparent;
+  border-left-width: 30px;
+  border-right-width: 30px;
+  transition: border-color 0.25s ease;
+  position: relative;
+}
+
+.zone1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Numéro photo */
+.photo-number {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 6px 12px;
+  font-size: 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+/* Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.8);
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.6rem;
+  user-select: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0,0,0,0.85);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-arrow.left { left: 16px; }
+.carousel-arrow.right { right: 16px; }
+
+/* Hide navigation UI and slide counter on front */
+.carousel-arrow,
+#photo-number {
+  display: none !important;
+}
+
+/* ================================================
+   ⚡ TENSION BAR
+   ================================================ */
+
+.tension-bar {
+  width: 120px;
+  height: 100vh;
+  /*display: flex;*/
+  flex-direction: column;
+}
+
+.tension-bar.disabled {
+  display: none;
+}
+/* Caché par défaut → anti-flash */
+.tension-bar {
+  display: none;
+}
+
+/* Si activée → le JS ajoute .enabled */
+.tension-bar.enabled {
+  display: flex;
+}
+
+.tension-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.25s ease, box-shadow 0.25s, border 0.25s ease;
+  border: 2px solid transparent;
+}
+
+.green  { background: #37aa32; }
+.yellow { background: #f8d718; }
+.orange { background: #f39100; }
+.red    { background: #e63027; }
+.black  { background: #3a3a39; }
+
+.tension-item.selected {
+  transform: scale(1.1);
+  z-index: 3;
+}
+
+/* ================================================
+   ⏳ SABLIER OVERLAY
+   ================================================ */
+.hourglass {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+  padding: 20px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.hourglass-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hourglass-wrapper {
+  position: relative;
+  width: 360px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+  animation: pulse-glow 1.2s infinite ease-in-out;
+}
+
+.hourglass-grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 1px;
+}
+
+.hourglass-cell {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.hourglass-time {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 42px;
+  color: #ff9d00;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 157, 0, 0.6);
+  box-shadow: 0 0 18px rgba(0,0,0,0.5), 0 0 12px rgba(255,157,0,0.3);
+  display: none;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 12px 40px rgba(255,157,0,0.08), 0 0 0 0 rgba(255,157,0,0.15); }
+  50% { box-shadow: 0 16px 60px rgba(255,157,0,0.45), 0 0 38px 18px rgba(255,157,0,0.30); }
+  100% { box-shadow: 0 12px 40px rgba(255,157,0,0.08), 0 0 0 0 rgba(255,157,0,0.15); }
+}

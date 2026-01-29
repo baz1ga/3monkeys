@@ -1,0 +1,560 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "edit": "Edit",
+    "new": "New",
+    "confirm": "Confirm",
+    "search": "Search",
+    "untitled": "Untitled",
+    "error": "Error"
+  },
+  "landing": {
+    "pitchTitle": "the GM control room",
+    "pitchText": "A simple, fast tool to display images, trigger sound ambiences, and manage dramatic tension without breaking the game flow.",
+    "pitchQuote": "“You keep control of the story, it handles the rest.”",
+    "featureGallery": "Instant gallery: swipe through visuals with zero friction.",
+    "featureAudio": "Audio ambiences: trigger sounds tied to your scenes.",
+    "featureTension": "Dramatic tension: adjust the level in a click and raise the pressure.",
+    "loginTitle": "Sign in",
+    "loginDiscord": "Sign in with Discord",
+    "footerTitle": ".ScenarWall. 2025 Beta",
+    "legal": "Legal notice",
+    "privacy": "Privacy policy",
+    "terms": "Terms",
+    "themeDark": "Dark mode",
+    "themeLight": "Light mode"
+  },
+  "layout": {
+    "space": "GM Space",
+    "dashboard": "Dashboard",
+    "scenarios": "Scenarios",
+    "sessions": "Sessions",
+    "gallery": "Gallery",
+    "library": "Library",
+    "scenarioFallback": "Scenario",
+    "sessionFallback": "Session",
+    "admin": "Administration",
+    "loadingWorkspace": "Loading your workspace…"
+  },
+  "dashboard": {
+    "docTitle": "Quick guide",
+    "docSubtitle": "Understand the app in 2 minutes and start a session without friction.",
+    "sectionStart": "Getting started",
+    "sectionFeatures": "Features",
+    "sectionTips": "Tips",
+    "ctaScenario": "Create my first scenario",
+    "howBase": "Build your scenario library",
+    "howScenes": "Organize your story scenes",
+    "howPlayers": "Offer a player view",
+    "howAmbience": "Broadcast sound and images for ambience",
+    "howTension": "Keep small tools to raise the tension",
+    "featureScenarios": "Scenarios: structure your campaigns and worlds.",
+    "featureScenes": "Scenes: break the story into clear moments.",
+    "featurePlayerView": "Player view: reveal content at the right time.",
+    "featureGallery": "Instant gallery: swipe through visuals with zero friction.",
+    "featureAudio": "Audio ambiences: trigger sounds tied to your scenes.",
+    "featureTension": "Dramatic tension: adjust the level in a click and raise the pressure.",
+    "tipScenes": "Prepare 3 to 6 key scenes to keep a smooth pace.",
+    "tipGm": "Use GM mode to guide the session without distracting players.",
+    "tipPlayers": "Player view is for revealing at the right moment: images, sounds, notes."
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Sign in with Discord to access your workspace.",
+    "loginDiscord": "Sign in with Discord"
+  },
+  "donation": {
+    "cta": "Support hosting and the 🍺",
+    "button": "Support us"
+  },
+  "feedback": {
+    "cta": "🎲 Want to improve .ScenarWall.?"
+  },
+  "games": {
+    "title": "Played games",
+    "subtitle": "Track and filter your runs by tenant and session.",
+    "searchPlaceholder": "Search a tenant...",
+    "hideShort": "Hide < 5m",
+    "noRuns": "No runs",
+    "columns": {
+      "tenant": "Tenant",
+      "session": "Session",
+      "date": "Date",
+      "duration": "Duration"
+    },
+    "buttons": {
+      "refresh": "Refresh runs",
+      "refreshing": "Refreshing..."
+    },
+    "aria": {
+      "search": "Search a tenant"
+    }
+  },
+  "notes": {
+    "loading": "Loading page",
+    "title": "Notes",
+    "subtitle": "Browse and manage notes by scenario and session.",
+    "sceneFallback": "Scene",
+    "none": "No notes",
+    "unlinked": "Unlinked",
+    "buttons": {
+      "edit": "Edit note",
+      "delete": "Delete note",
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "modals": {
+      "editTitle": "Edit note",
+      "deleteTitle": "Delete note",
+      "deleteConfirm": "Confirm deletion of note {name}?"
+    }
+  },
+  "tension": {
+    "loading": "Loading page",
+    "loadError": "Unable to load tension",
+    "title": "Tension bar",
+    "subtitle": "Customize the tension bar",
+    "enable": "Enable tension bar",
+    "disable": "Disable tension bar",
+    "textStyle": "Text style",
+    "levelsTitle": "Levels, colors and audio",
+    "fields": {
+      "label": "Label",
+      "color": "Color",
+      "audio": "Audio",
+      "audioNone": "None",
+      "audioMissing": "(missing)"
+    },
+    "reset": "Reset",
+    "saving": "Saving...",
+    "savedOn": "Tension bar enabled.",
+    "savedOff": "Tension bar disabled.",
+    "saveError": "Tension error",
+    "fonts": {
+      "audiowide": "Futuristic (Audiowide)",
+      "metal": "Horror (Metal Mania)",
+      "rye": "Saloon (Rye)",
+      "shareTech": "Techno (Share Tech Mono)",
+      "bangers": "Cartoon (Bangers)",
+      "greatVibes": "Handwritten (Great Vibes)"
+    }
+  },
+  "accessibility": {
+    "tensionToggle": "Enable/disable tension bar",
+    "tensionLabel": "Level label",
+    "tensionColor": "Level color",
+    "tensionAudio": "Level audio",
+    "resetTension": "Reset tension bar",
+    "saveTension": "Save tension bar"
+  },
+  "users": {
+    "loading": "Loading page",
+    "title": "Users",
+    "subtitle": "Manage quotas and usage per tenant.",
+    "totalUsage": "Total usage",
+    "usage": {
+      "undefined": "quota not set"
+    },
+    "globalQuota": {
+      "label": "Default global quota (MB)",
+      "updateButton": "Update",
+      "invalid": "Enter a valid value (>0).",
+      "success": "Global quota updated.",
+      "updateError": "Update failed."
+    },
+    "tenantQuota": {
+      "title": "Custom quota",
+      "desc": "Set a quota (MB) for",
+      "clear": "Leave empty to apply the global quota.",
+      "label": "Quota (MB)",
+      "placeholder": "Global quota",
+      "invalid": "Enter a positive number or leave empty for global quota.",
+      "updateError": "Unable to update quota."
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "deleteUser": "Delete {name} permanently?",
+      "error": "Unable to delete user."
+    },
+    "buttons": {
+      "editQuota": "Edit quota",
+      "delete": "Delete"
+    },
+    "table": {
+      "name": "Name",
+      "tenant": "Tenant",
+      "scenarios": "Scenarios",
+      "notes": "Notes",
+      "images": "Images",
+      "audio": "Audio",
+      "usage": "Usage",
+      "lastLogin": "Last login",
+      "actions": "Actions",
+      "empty": "No users"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Images available for your scenes.",
+    "new": "Add",
+    "search": "Search an image",
+    "empty": "No images yet. Click “Add” to get started.",
+    "loading": "Loading your gallery...",
+    "none": "No images",
+    "hiddenTitle": "Hidden images",
+    "hiddenSubtitle": "Does not impact existing scenes.",
+    "hiddenBadge": "Hidden",
+    "selectImage": "Select",
+    "reorderHint": "Drag to reorder",
+    "dragToMove": "Drag to move",
+    "dropHere": "Drop here",
+    "zoomClose": "Click to close",
+    "filters": {
+      "all": "All",
+      "recent": "Recent"
+    },
+    "buttons": {
+      "add": "Add to library",
+      "hideSelected": "Hide selection",
+      "showHidden": "Restore to library",
+      "deleteSelection": "Delete selection",
+      "selectImages": "Select images"
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "message": "Delete {count} image(s)?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "actions": {
+      "rename": "Rename",
+      "delete": "Delete"
+    },
+    "rename": {
+      "title": "Rename image",
+      "placeholder": "New name"
+    },
+    "delete": {
+      "title": "Delete image",
+      "message": "Delete “{name}”?"
+    },
+    "upload": {
+      "title": "Add an image",
+      "subtitle": "Import from your computer, a link or Pixabay.",
+      "fromComputer": "From your computer",
+      "fromUrl": "Import via URL",
+      "pixabay": "Pixabay",
+      "dropTitle": "Drop your image here",
+      "dropHint": "PNG, JPG, WEBP — Max size 6 MB per file",
+      "browse": "Browse",
+      "urlPlaceholder": "Paste the image URL",
+      "urlImport": "Import",
+      "urlLoading": "Loading...",
+      "urlFetchError": "Unable to fetch the image.",
+      "urlNotImage": "The link does not point to an image.",
+      "urlImportFail": "URL import failed.",
+      "urlImported": "Image imported.",
+      "pixabayPlaceholder": "Search Pixabay (ex: forest, dragon, tavern...)",
+      "pixabayNoKey": "Missing API key",
+      "pixabayMissingKey": "Missing Pixabay API key (PIXABAY_KEY)",
+      "pixabaySearch": "Search",
+      "pixabayLoading": "Searching...",
+      "pixabayError": "Unable to fetch Pixabay results.",
+      "pixabayImage": "Pixabay image",
+      "pixabayImport": "Import",
+      "pixabayImportOk": "Pixabay image imported.",
+      "pixabayImportFail": "Pixabay import failed.",
+      "success": "Image added!",
+      "error": "Upload failed. Please retry."
+    }
+  },
+  "scenarios": {
+    "title": "Scenarios",
+    "subtitle": "Manage your plots and their related sessions.",
+    "loadingPage": "Loading page",
+    "loadingList": "Loading scenarios...",
+    "empty": "No scenarios yet. Click “New” to get started.",
+    "new": "New",
+    "newSession": "New session",
+    "sessions": "Sessions",
+    "create": {
+      "title": "New scenario",
+      "placeholder": "Scenario title",
+      "iconLabel": "Scenario icon",
+      "iconPreview": "Preview",
+      "iconSearch": "Search an icon",
+      "iconNone": "No matching icons."
+    },
+    "edit": {
+      "title": "Edit scenario",
+      "placeholder": "Scenario title"
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "message": "Delete this scenario?",
+      "messageWithName": "Delete scenario “{name}”?"
+    },
+    "errors": {
+      "load": "Unable to load scenarios.",
+      "save": "Unable to save scenario.",
+      "delete": "Unable to delete scenario."
+    }
+  },
+  "audio": {
+    "title": "Audio files",
+    "subtitle": "Audio library available for your scenes.",
+    "loading": "Loading page",
+    "none": "No audio",
+    "reorderHint": "Drag to reorder",
+    "renameDialog": {
+      "title": "Rename audio",
+      "current": "Current name:",
+      "label": "New name",
+      "placeholder": "e.g. ambience.mp3",
+      "cancel": "Cancel",
+      "confirm": "Rename",
+      "sameName": "Name is unchanged.",
+      "empty": "Enter a name."
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "deleteOne": "Delete this audio permanently?"
+    },
+    "buttons": {
+      "upload": "Add (< 40 MB)",
+      "rename": "Rename audio",
+      "delete": "Delete audio"
+    },
+    "messages": {
+      "added": "{count} file(s) added.",
+      "errors": "Some uploads failed.",
+      "deleteOk": "Audio deleted.",
+      "deleteFailed": "Delete failed.",
+      "renameOk": "Name updated.",
+      "renameFail": "Unable to rename."
+    }
+  },
+  "sessions": {
+    "title": "Sessions",
+    "subtitle": "Find all your sessions.",
+    "loadingPage": "Loading page",
+    "search": "Search a session",
+    "empty": "No sessions yet.",
+    "noScenario": "No scenario",
+    "noSessions": "No sessions",
+    "buttons": {
+      "new": "New session"
+    },
+    "errors": {
+      "save": "Unable to save session."
+    },
+    "table": {
+      "title": "Title",
+      "scenario": "Scenario",
+      "updated": "Updated"
+    },
+    "create": {
+      "title": "New session",
+      "placeholder": "Session title",
+      "scenarioLabel": "Scenario",
+      "scenarioPlaceholder": "No scenario",
+      "iconLabel": "Icon",
+      "iconPreview": "Preview",
+      "iconSearch": "Search an icon",
+      "iconNone": "No matching icon."
+    },
+    "edit": {
+      "loading": "Loading session...",
+      "title": "Session settings",
+      "subtitle": "Update the session title and icon",
+      "error": "Unable to load the session.",
+      "saveError": "Unable to save the session.",
+      "deleteError": "Unable to delete the session.",
+      "fields": {
+        "titleLabel": "Title",
+        "titlePlaceholder": "Session title",
+        "iconLabel": "Icon",
+        "preview": "Preview",
+        "iconSearch": "Search an icon",
+        "noIcon": "No matching icon."
+      },
+      "actions": {
+        "delete": "Delete session"
+      },
+      "confirm": {
+        "title": "Delete this session?",
+        "message": "The session and its scenes will be deleted."
+      }
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "message": "Delete this session?"
+    }
+  },
+  "scenes": {
+    "header": {
+      "title": "Scenes",
+      "subtitle": "Keep your session flowing"
+    },
+    "loading": "Loading scenes...",
+    "fallback": "Scene",
+    "tabs": {
+      "images": "Images",
+      "audio": "Audio",
+      "notes": "Notes"
+    },
+    "actions": {
+      "add": "Add a scene",
+      "duplicate": "Duplicate scene",
+      "copySuffix": "copy"
+    },
+    "images": {
+      "title": "Scene images",
+      "upload": "Add",
+      "empty": "No images for this scene.",
+      "library": "Your library",
+      "openGallery": "Open gallery",
+      "dragHint": "Drag to reorder",
+      "associateHint": "Click to attach"
+    },
+    "audio": {
+      "title": "Scene audio",
+      "empty": "No audio for this scene.",
+      "library": "All your audios",
+      "add": "Add (< 40 MB)",
+      "open": "Open audios",
+      "uploadSuccess": "Audio added.",
+      "uploadError": "Upload failed."
+    },
+    "notes": {
+      "title": "Scene notes",
+      "save": "Save",
+      "placeholder": "Write your notes here..."
+    },
+    "create": {
+      "title": "New scene",
+      "placeholder": "Scene title"
+    },
+    "edit": {
+      "title": "Edit scene",
+      "placeholder": "Scene title"
+    },
+    "delete": {
+      "title": "Delete this scene?",
+      "message": "This scene will be permanently deleted."
+    },
+    "errors": {
+      "load": "Unable to load scenes.",
+      "titleRequired": "Title is required.",
+      "create": "Unable to create scene.",
+      "update": "Unable to update scene."
+    }
+  },
+  "sessionNav": {
+    "sessionFallback": "Session",
+    "scenes": "Scenes",
+    "tension": "Tension",
+    "players": "Players",
+    "pnj": "NPCs",
+    "settings": "Settings",
+    "gm": "Game Master",
+    "gmSoon": "Coming soon",
+    "comingSoon": "Coming soon."
+  },
+  "gm": {
+    "header": {
+      "sessionFallback": "Session",
+      "present": "Present"
+    },
+    "scenes": {
+      "title": "Scenes",
+      "untitled": "Scene",
+      "empty": "No scene"
+    },
+    "notes": {
+      "title": "Scene notes",
+      "placeholder": "Your notes for this scene..."
+    },
+    "tension": {
+      "title": "Tension"
+    },
+    "front": {
+      "online": "Players connected",
+      "offline": "Players disconnected"
+    },
+    "slideshow": {
+      "title": "Slideshow",
+      "loading": "Loading images...",
+      "empty": "No image available.",
+      "error": "Slideshow error.",
+      "nextScene": "Go to next scene",
+      "prevImage": "Go to previous image",
+      "prevAlt": "Previous image",
+      "currentAlt": "Current image",
+      "nextImage": "Go to next image",
+      "nextAlt": "Next image"
+    },
+    "playlist": {
+      "title": "Playlist",
+      "loading": "Loading...",
+      "empty": "No audio file.",
+      "error": "Playlist error."
+    },
+    "timer": {
+      "start": "Timer",
+      "stop": "Stop",
+      "reset": "Reset"
+    },
+    "slide": {
+      "prev": "Slide -",
+      "next": "Slide +"
+    },
+    "hourglass": {
+      "title": "Hourglass",
+      "flip": "Flip",
+      "reset": "Reset",
+      "play": "Play",
+      "duration": "Duration (s)",
+      "show": "Show",
+      "showTimer": "Show timer",
+      "toggleShow": "Show",
+      "toggleHide": "Hide",
+      "start": "Start",
+      "stop": "Stop",
+      "display": "Duration",
+      "modalTitle": "Hourglass duration",
+      "sliderLabel": "Duration (slider, max 30min)",
+      "minLabel": "30s",
+      "maxLabel": "30min",
+      "showTimerLabel": "Show duration"
+    },
+    "scenarDeck": "ScenarDeck",
+    "closeScenarDeck": "Close ScenarDeck",
+    "closeModal": "Close modal",
+    "common": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "leave": {
+      "title": "Leave Game Master mode?",
+      "body": "You will return to the session page.",
+      "cancel": "Cancel",
+      "proceed": "Continue"
+    }
+  }
+  ,
+  "userMenu": {
+    "loggedAs": "Logged as ",
+    "quota": "Quota",
+    "roadmap": "ScenarWall roadmap",
+    "logout": "Logout"
+  }
+}

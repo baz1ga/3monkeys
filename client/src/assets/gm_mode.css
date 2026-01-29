@@ -1,0 +1,24 @@
+.notes-editor textarea {
+  min-height: 320px;
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: inherit;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.notes-editor textarea:focus {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+.dark .notes-editor textarea {
+  border-color: #1f2937;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+.dark .notes-editor textarea:focus {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}

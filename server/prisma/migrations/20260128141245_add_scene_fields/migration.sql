@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Scene" ADD COLUMN "audio" TEXT;
+ALTER TABLE "Scene" ADD COLUMN "images" TEXT;
+ALTER TABLE "Scene" ADD COLUMN "notes" TEXT;
+ALTER TABLE "Scene" ADD COLUMN "tension" INTEGER;

@@ -1,0 +1,560 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "saving": "Sauvegarde...",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "new": "Nouveau",
+    "confirm": "Confirmer",
+    "search": "Rechercher",
+    "untitled": "Sans titre",
+    "error": "Erreur"
+  },
+  "landing": {
+    "pitchTitle": "la régie du MJ",
+    "pitchText": "Un outil simple et rapide pour afficher des images, lancer des ambiances sonores et gérer la tension dramatique, sans casser le rythme de la partie.",
+    "pitchQuote": "« Tu gardes la main sur la narration, et lui s’occupe du reste. »",
+    "featureGallery": "Galerie immédiate : fais défiler tes visuels sans friction.",
+    "featureAudio": "Ambiances audio : déclenche les sons liés à tes scènes.",
+    "featureTension": "Tension dramatique : ajuste le niveau en un clic et fait monter la pression.",
+    "loginTitle": "Connexion",
+    "loginDiscord": "Se connecter avec Discord",
+    "footerTitle": ".ScenarWall. 2025 Bêta",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "terms": "CGU",
+    "themeDark": "Mode sombre",
+    "themeLight": "Mode clair"
+  },
+  "layout": {
+    "space": "Espace MJ",
+    "dashboard": "Tableau de bord",
+    "scenarios": "Scénarios",
+    "sessions": "Sessions",
+    "gallery": "Galerie",
+    "library": "Bibliothèque",
+    "scenarioFallback": "Scénario",
+    "sessionFallback": "Session",
+    "admin": "Administration",
+    "loadingWorkspace": "Chargement de votre espace…"
+  },
+  "dashboard": {
+    "docTitle": "Guide rapide",
+    "docSubtitle": "Comprendre l'app en 2 minutes et démarrer une partie sans friction.",
+    "sectionStart": "Démarrer",
+    "sectionFeatures": "Fonctionnalités",
+    "sectionTips": "Conseils pratiques",
+    "ctaScenario": "Créer mon premier scénario",
+    "howBase": "Constituer votre base de scénarios",
+    "howScenes": "Organiser vos scènes de récit",
+    "howPlayers": "Proposer une vue joueurs",
+    "howAmbience": "Diffuser sons et images pour l'ambiance",
+    "howTension": "Garder des petits outils pour renforcer la tension",
+    "featureScenarios": "Scénarios : structure tes campagnes et tes univers.",
+    "featureScenes": "Scènes : découpe le récit et retrouve chaque moment.",
+    "featurePlayerView": "Vue joueurs : diffuse le contenu au bon moment.",
+    "featureGallery": "Galerie immédiate : fais défiler tes visuels sans friction.",
+    "featureAudio": "Ambiances audio : déclenche les sons liés à tes scènes.",
+    "featureTension": "Tension dramatique : ajuste le niveau en un clic et fait monter la pression.",
+    "tipScenes": "Prépare 3 à 6 scènes clés pour garder un rythme fluide.",
+    "tipGm": "Utilise le mode MJ pour rythmer la session sans distraire les joueurs.",
+    "tipPlayers": "La vue joueurs sert à révéler au bon moment : images, sons, notes."
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "loginSubtitle": "Connecte-toi avec Discord pour accéder à ton espace.",
+    "loginDiscord": "Se connecter avec Discord"
+  },
+  "donation": {
+    "cta": "Un coup de pouce pour l'hébergement et la 🍺",
+    "button": "Soutenez-nous"
+  },
+  "feedback": {
+    "cta": "🎲 Envie d'améliorer .ScenarWall. ?"
+  },
+  "games": {
+    "title": "Parties jouées",
+    "subtitle": "Suivez et filtrez vos runs par tenant et session.",
+    "searchPlaceholder": "Rechercher un tenant...",
+    "hideShort": "Masquer < 5m",
+    "noRuns": "Aucune partie jouée",
+    "columns": {
+      "tenant": "Tenant",
+      "session": "Session",
+      "date": "Date",
+      "duration": "Durée"
+    },
+    "buttons": {
+      "refresh": "Refresh runs",
+      "refreshing": "Rafraîchissement..."
+    },
+    "aria": {
+      "search": "Search a tenant"
+    }
+  },
+  "notes": {
+    "loading": "Chargement de la page",
+    "title": "Notes",
+    "subtitle": "Consultez et gérez l’ensemble des notes par scénario et session.",
+    "sceneFallback": "Scène",
+    "none": "Aucune note",
+    "unlinked": "Non liées",
+    "buttons": {
+      "edit": "Éditer la note",
+      "delete": "Supprimer la note",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "close": "Fermer"
+    },
+    "modals": {
+      "editTitle": "Éditer la note",
+      "deleteTitle": "Supprimer la note",
+      "deleteConfirm": "Confirmer la suppression de la note {name} ?"
+    }
+  },
+  "tension": {
+    "loading": "Chargement de la page",
+    "loadError": "Impossible de charger la tension",
+    "title": "Barre de tension",
+    "subtitle": "Customiser la barre de tension",
+    "enable": "Activer la barre de tension",
+    "disable": "Désactiver la barre de tension",
+    "textStyle": "Style de texte",
+    "levelsTitle": "Niveaux, couleurs et audio des niveaux",
+    "fields": {
+      "label": "Label",
+      "color": "Couleur",
+      "audio": "Audio",
+      "audioNone": "Aucun",
+      "audioMissing": "(manquant)"
+    },
+    "reset": "Réinitialiser",
+    "saving": "Enregistrement...",
+    "savedOn": "Barre de tension activée.",
+    "savedOff": "Barre de tension désactivée.",
+    "saveError": "Erreur tension",
+    "fonts": {
+      "audiowide": "Futuriste (Audiowide)",
+      "metal": "Horrifique (Metal Mania)",
+      "rye": "Saloon (Rye)",
+      "shareTech": "Techno (Share Tech Mono)",
+      "bangers": "Cartoon (Bangers)",
+      "greatVibes": "Manuscrit (Great Vibes)"
+    }
+  },
+  "accessibility": {
+    "tensionToggle": "Activer/désactiver la barre de tension",
+    "tensionLabel": "Label du niveau",
+    "tensionColor": "Couleur du niveau",
+    "tensionAudio": "Audio du niveau",
+    "resetTension": "Réinitialiser la barre de tension",
+    "saveTension": "Enregistrer la barre de tension"
+  },
+  "users": {
+    "loading": "Chargement de la page",
+    "title": "Utilisateurs",
+    "subtitle": "Gérez les quotas et usages par tenant.",
+    "totalUsage": "Total usages",
+    "usage": {
+      "undefined": "quota non défini"
+    },
+    "globalQuota": {
+      "label": "Quota global par défaut (Mo)",
+      "updateButton": "Mettre à jour",
+      "invalid": "Entrez une valeur valide (>0).",
+      "success": "Quota global mis à jour.",
+      "updateError": "Échec de la mise à jour."
+    },
+    "tenantQuota": {
+      "title": "Quota personnalisé",
+      "desc": "Définissez un quota (Mo) pour",
+      "clear": "Laisser vide pour appliquer le quota global.",
+      "label": "Quota (Mo)",
+      "placeholder": "Quota global",
+      "invalid": "Entrez un nombre positif ou laissez vide pour quota global.",
+      "updateError": "Impossible de mettre à jour le quota."
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "deleteUser": "Supprimer définitivement {name} ?",
+      "error": "Impossible de supprimer l'utilisateur."
+    },
+    "buttons": {
+      "editQuota": "Éditer quota",
+      "delete": "Supprimer"
+    },
+    "table": {
+      "name": "Nom",
+      "tenant": "Tenant",
+      "scenarios": "Scénarios",
+      "notes": "Notes",
+      "images": "Images",
+      "audio": "Audio",
+      "usage": "Usage",
+      "lastLogin": "Dernière connexion",
+      "actions": "Actions",
+      "empty": "Aucun utilisateur"
+    }
+  },
+  "gallery": {
+    "title": "Galerie",
+    "subtitle": "Images disponibles pour vos scènes.",
+    "new": "Ajouter",
+    "search": "Rechercher une image",
+    "empty": "Aucune image pour le moment. Cliquez sur “Ajouter” pour commencer.",
+    "loading": "Chargement de votre galerie...",
+    "none": "Aucune image",
+    "hiddenTitle": "Vos images mises de côté",
+    "hiddenSubtitle": "N'impacte pas vos scènes existantes.",
+    "hiddenBadge": "Cachée",
+    "selectImage": "Sélectionner",
+    "reorderHint": "Glisser pour réordonner",
+    "dragToMove": "Glisser pour déplacer",
+    "dropHere": "Déposer ici",
+    "zoomClose": "Cliquer pour fermer",
+    "filters": {
+      "all": "Toutes",
+      "recent": "Récentes"
+    },
+    "buttons": {
+      "add": "Ajouter à la bibliothèque",
+      "hideSelected": "Mettre de côté",
+      "showHidden": "Ajouter à la bibliothèque",
+      "deleteSelection": "Supprimer la sélection",
+      "selectImages": "Sélectionner des images"
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "message": "Supprimer {count} image(s) ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    },
+    "actions": {
+      "rename": "Renommer",
+      "delete": "Supprimer"
+    },
+    "rename": {
+      "title": "Renommer l'image",
+      "placeholder": "Nouveau nom"
+    },
+    "delete": {
+      "title": "Supprimer l'image",
+      "message": "Supprimer “{name}” ?"
+    },
+    "upload": {
+      "title": "Ajouter une image",
+      "subtitle": "Importez depuis votre ordinateur, un lien ou Pixabay.",
+      "fromComputer": "Depuis votre ordinateur",
+      "fromUrl": "Import via URL",
+      "pixabay": "Pixabay",
+      "dropTitle": "Glissez-déposez votre image",
+      "dropHint": "PNG, JPG, WEBP — Taille max 6 Mo par fichier",
+      "browse": "Parcourir",
+      "urlPlaceholder": "Collez l'URL de l'image",
+      "urlImport": "Importer",
+      "urlLoading": "Chargement...",
+      "urlFetchError": "Impossible de charger l'image.",
+      "urlNotImage": "Le lien ne pointe pas vers une image.",
+      "urlImportFail": "Échec de l'import par URL.",
+      "urlImported": "Image importée.",
+      "pixabayPlaceholder": "Rechercher sur Pixabay (ex: forêt, dragon, tavern...)",
+      "pixabayNoKey": "Clé API manquante",
+      "pixabayMissingKey": "Clé API Pixabay manquante (PIXABAY_KEY)",
+      "pixabaySearch": "Rechercher",
+      "pixabayLoading": "Recherche...",
+      "pixabayError": "Impossible de récupérer les résultats Pixabay.",
+      "pixabayImage": "Image Pixabay",
+      "pixabayImport": "Importer",
+      "pixabayImportOk": "Image Pixabay importée.",
+      "pixabayImportFail": "Échec de l'import Pixabay.",
+      "success": "Image ajoutée !",
+      "error": "Échec de l'import. Réessayez."
+    }
+  },
+  "scenarios": {
+    "title": "Scénarios",
+    "subtitle": "Gérez vos intrigues et leurs sessions associées.",
+    "loadingPage": "Chargement de la page",
+    "loadingList": "Chargement des scénarios...",
+    "empty": "Aucun scénario pour le moment. Cliquez sur “Nouveau” pour commencer.",
+    "new": "Nouveau",
+    "newSession": "Nouvelle session",
+    "sessions": "Sessions",
+    "create": {
+      "title": "Nouveau scénario",
+      "placeholder": "Titre du scénario",
+      "iconLabel": "Icône du scénario",
+      "iconPreview": "Aperçu",
+      "iconSearch": "Rechercher une icône",
+      "iconNone": "Aucun icône correspondant."
+    },
+    "edit": {
+      "title": "Modifier le scénario",
+      "placeholder": "Titre du scénario"
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "message": "Supprimer ce scénario ?",
+      "messageWithName": "Supprimer le scénario “{name}” ?"
+    },
+    "errors": {
+      "load": "Impossible de charger les scénarios.",
+      "save": "Impossible d’enregistrer le scénario.",
+      "delete": "Impossible de supprimer le scénario."
+    }
+  },
+  "audio": {
+    "title": "Fichiers audio",
+    "subtitle": "Bibliothèque audio disponible pour vos scènes.",
+    "loading": "Chargement de la page",
+    "none": "Aucun audio",
+    "reorderHint": "Glisser pour réordonner",
+    "renameDialog": {
+      "title": "Renommer l'audio",
+      "current": "Nom actuel :",
+      "label": "Nouveau nom",
+      "placeholder": "ex: ambiance.mp3",
+      "cancel": "Annuler",
+      "confirm": "Renommer",
+      "sameName": "Le nom est identique.",
+      "empty": "Entrez un nom."
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "deleteOne": "Supprimer définitivement cet audio ?"
+    },
+    "buttons": {
+      "upload": "Ajouter (< 40 Mo)",
+      "rename": "Renommer l'audio",
+      "delete": "Supprimer l'audio"
+    },
+    "messages": {
+      "added": "{count} fichier(s) ajouté(s).",
+      "errors": "Certains uploads ont échoué.",
+      "deleteOk": "Audio supprimé.",
+      "deleteFailed": "Suppression impossible.",
+      "renameOk": "Nom mis à jour.",
+      "renameFail": "Impossible de renommer."
+    }
+  },
+  "sessions": {
+    "title": "Sessions",
+    "subtitle": "Retrouvez toutes vos sessions.",
+    "loadingPage": "Chargement de la page",
+    "search": "Rechercher une session",
+    "empty": "Aucune session pour le moment.",
+    "noScenario": "Sans scénario",
+    "noSessions": "Aucune session",
+    "buttons": {
+      "new": "Nouvelle session"
+    },
+    "errors": {
+      "save": "Impossible d’enregistrer la session."
+    },
+    "table": {
+      "title": "Titre",
+      "scenario": "Scénario",
+      "updated": "Mise à jour"
+    },
+    "create": {
+      "title": "Nouvelle session",
+      "placeholder": "Titre de la session",
+      "scenarioLabel": "Scénario",
+      "scenarioPlaceholder": "Sans scénario",
+      "iconLabel": "Icône",
+      "iconPreview": "Aperçu",
+      "iconSearch": "Rechercher une icône",
+      "iconNone": "Aucun icône correspondant."
+    },
+    "edit": {
+      "loading": "Chargement de la session...",
+      "title": "Paramètres de la session",
+      "subtitle": "Mettre à jour le titre et l'icône de la session",
+      "error": "Impossible de charger la session.",
+      "saveError": "Impossible d’enregistrer la session.",
+      "deleteError": "Impossible de supprimer la session.",
+      "fields": {
+        "titleLabel": "Titre",
+        "titlePlaceholder": "Titre de la session",
+        "iconLabel": "Icône",
+        "preview": "Aperçu",
+        "iconSearch": "Rechercher une icône",
+        "noIcon": "Aucun icône correspondant."
+      },
+      "actions": {
+        "delete": "Supprimer la session"
+      },
+      "confirm": {
+        "title": "Supprimer cette session ?",
+        "message": "La session et ses scènes seront supprimées."
+      }
+    },
+    "confirm": {
+      "title": "Confirmation",
+      "message": "Supprimer cette session ?"
+    }
+  },
+  "scenes": {
+    "header": {
+      "title": "Scènes",
+      "subtitle": "Pour rythmer votre partie"
+    },
+    "loading": "Chargement des scènes...",
+    "fallback": "Scène",
+    "tabs": {
+      "images": "Images",
+      "audio": "Audio",
+      "notes": "Notes"
+    },
+    "actions": {
+      "add": "Ajouter une scène",
+      "duplicate": "Dupliquer la scène",
+      "copySuffix": "copie"
+    },
+    "images": {
+      "title": "Images de la scène",
+      "upload": "Ajouter",
+      "empty": "Aucune image pour cette scène.",
+      "library": "Votre bibliothèque",
+      "openGallery": "Ouvrir la galerie",
+      "dragHint": "Glisser pour déplacer",
+      "associateHint": "Cliquer pour associer"
+    },
+    "audio": {
+      "title": "Audio de la scène",
+      "empty": "Aucun audio pour cette scène.",
+      "library": "Tous vos audios",
+      "add": "Ajouter (< 40 Mo)",
+      "open": "Ouvrir les audios",
+      "uploadSuccess": "Audio ajouté.",
+      "uploadError": "Erreur lors de l’upload."
+    },
+    "notes": {
+      "title": "Notes de la scène",
+      "save": "Enregistrer",
+      "placeholder": "Écrivez vos notes ici..."
+    },
+    "create": {
+      "title": "Nouvelle scène",
+      "placeholder": "Titre de la scène"
+    },
+    "edit": {
+      "title": "Modifier la scène",
+      "placeholder": "Titre de la scène"
+    },
+    "delete": {
+      "title": "Supprimer cette scène ?",
+      "message": "La scène sera supprimée définitivement."
+    },
+    "errors": {
+      "load": "Impossible de charger les scènes.",
+      "titleRequired": "Le titre est requis.",
+      "create": "Création impossible.",
+      "update": "Mise à jour impossible."
+    }
+  },
+  "sessionNav": {
+    "sessionFallback": "Session",
+    "scenes": "Scènes",
+    "tension": "Tension",
+    "players": "Joueurs",
+    "pnj": "PNJ",
+    "settings": "Paramètres",
+    "gm": "Game Master",
+    "gmSoon": "Bientôt disponible",
+    "comingSoon": "Bientôt disponible."
+  },
+  "gm": {
+    "header": {
+      "sessionFallback": "Session",
+      "present": "Présenter"
+    },
+    "scenes": {
+      "title": "Scènes",
+      "untitled": "Scène",
+      "empty": "Aucune scène"
+    },
+    "notes": {
+      "title": "Notes de la scène",
+      "placeholder": "Vos notes pour cette scène..."
+    },
+    "tension": {
+      "title": "Tension"
+    },
+    "front": {
+      "online": "Joueurs connectés",
+      "offline": "Joueurs déconnectés"
+    },
+    "slideshow": {
+      "title": "Diaporama",
+      "loading": "Chargement des images...",
+      "empty": "Aucune image disponible.",
+      "error": "Erreur du diaporama.",
+      "nextScene": "Passer à la scène suivante",
+      "prevImage": "Aller à l'image précédente",
+      "prevAlt": "Image précédente",
+      "currentAlt": "Image actuelle",
+      "nextImage": "Aller à l'image suivante",
+      "nextAlt": "Image suivante"
+    },
+    "playlist": {
+      "title": "Playlist",
+      "loading": "Chargement...",
+      "empty": "Aucun fichier audio.",
+      "error": "Erreur de playlist."
+    },
+    "timer": {
+      "start": "Timer",
+      "stop": "Stop",
+      "reset": "Reset"
+    },
+    "slide": {
+      "prev": "Slide -",
+      "next": "Slide +"
+    },
+    "hourglass": {
+      "title": "Sablier",
+      "flip": "Retourner",
+      "reset": "Reset",
+      "play": "Play",
+      "duration": "Durée (s)",
+      "show": "Afficher",
+      "showTimer": "Afficher le timer",
+      "toggleShow": "Afficher",
+      "toggleHide": "Masquer",
+      "start": "Start",
+      "stop": "Stop",
+      "display": "Durée",
+      "modalTitle": "Durée du sablier",
+      "sliderLabel": "Durée (curseur, max 30min)",
+      "minLabel": "30s",
+      "maxLabel": "30min",
+      "showTimerLabel": "Afficher la durée"
+    },
+    "scenarDeck": "ScenarDeck",
+    "closeScenarDeck": "Close ScenarDeck",
+    "closeModal": "Fermer la modale",
+    "common": {
+      "cancel": "Annuler",
+      "confirm": "Valider"
+    },
+    "leave": {
+      "title": "Quitter le mode Game Master ?",
+      "body": "Vous allez retourner sur la page de la session.",
+      "cancel": "Annuler",
+      "proceed": "Continuer"
+    }
+  }
+  ,
+  "userMenu": {
+    "loggedAs": "Connecté en tant que ",
+    "quota": "Quota",
+    "roadmap": "Roadmap .ScenarWall.",
+    "logout": "Logout"
+  }
+}

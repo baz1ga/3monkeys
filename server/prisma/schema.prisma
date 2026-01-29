@@ -1,0 +1,182 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  displayName String?
+  avatarUrl   String?
+  discordId   String?  @unique
+  role        String   @default("USER")
+  lastLogin   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tenant      Tenant?
+}
+
+model Tenant {
+  id         String     @id @default(cuid())
+  ownerId    String?    @unique
+  owner      User?      @relation(fields: [ownerId], references: [id])
+  name       String
+  quotaMB    Float?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  scenarios  Scenario[]
+  sessions   Session[]
+  scenes     Scene[]
+  characters Character[]
+  assets     Asset[]
+  notes      Note[]
+  gmStates   SessionGmState[]
+  runStates  SessionRunState[]
+}
+
+model Scenario {
+  id         String    @id @default(cuid())
+  tenantId   String
+  tenant     Tenant    @relation(fields: [tenantId], references: [id])
+  title      String
+  icon       String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  sessions   Session[]
+  characters Character[]
+  scenes     Scene[]
+}
+
+model Session {
+  id           String    @id @default(cuid())
+  tenantId     String
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  scenarioId   String?
+  scenario     Scenario? @relation(fields: [scenarioId], references: [id])
+  title        String
+  icon         String?
+  tensionEnabled Boolean  @default(true)
+  tensionFont    String?
+  tensionColors  String?
+  tensionLabels  String?
+  tensionAudio   String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  scenes       Scene[]
+  characterLinks CharacterSession[]
+  gmState      SessionGmState?
+  runStates    SessionRunState[]
+}
+
+model Scene {
+  id         String    @id @default(cuid())
+  tenantId   String
+  tenant     Tenant    @relation(fields: [tenantId], references: [id])
+  scenarioId String?
+  scenario   Scenario? @relation(fields: [scenarioId], references: [id])
+  sessionId  String?
+  session    Session?  @relation(fields: [sessionId], references: [id])
+  title      String
+  order      Int       @default(0)
+  images     String?
+  audio      String?
+  tension    Int?
+  notes      String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Character {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  name        String
+  role        String
+  type        String?
+  race        String?
+  history     String?
+  hpCurrent   Int      @default(0)
+  hpMax       Int      @default(0)
+  scenarioId  String?
+  scenario    Scenario? @relation(fields: [scenarioId], references: [id])
+  avatarUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sessions    CharacterSession[]
+}
+
+model CharacterSession {
+  characterId String
+  sessionId   String
+  character   Character @relation(fields: [characterId], references: [id])
+  session     Session   @relation(fields: [sessionId], references: [id])
+
+  @@id([characterId, sessionId])
+}
+
+model Asset {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  type      String   // image | audio
+  name      String
+  url       String
+  thumbUrl  String?
+  size      Int
+  hidden    Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SessionGmState {
+  id                 String   @id @default(cuid())
+  tenantId           String
+  tenant             Tenant   @relation(fields: [tenantId], references: [id])
+  sessionId          String   @unique
+  session            Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  tensionLevel       String?
+  timerRunning       Boolean  @default(false)
+  timerElapsedMs     Int      @default(0)
+  timerStartedAt     DateTime?
+  hourglassDuration  Int      @default(60)
+  hourglassShowTimer Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model SessionRunState {
+  id             String   @id @default(cuid())
+  tenantId       String
+  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+  sessionId      String
+  session        Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  front          String   @default("offline")
+  gm             String   @default("offline")
+  lastFrontPing  DateTime?
+  lastGmPing     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId, sessionId, updatedAt])
+}
+
+model AppSetting {
+  id             String  @id @default(cuid())
+  defaultQuotaMB Float?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
