@@ -1,5 +1,5 @@
 import type { FastifyBaseLogger } from 'fastify';
-import { WebSocketServer, WebSocket } from 'ws';
+import { WebSocketServer, WebSocket, type RawData } from 'ws';
 
 type WsMeta = {
   tenantId: string | null;
@@ -19,7 +19,7 @@ type InitParams = {
 };
 
 export const initWebsocket = ({ server, logger }: InitParams) => {
-  const log = logger || console;
+  const log: { warn?: (...args: any[]) => void } = logger || console;
   const wss = new WebSocketServer({ server, path: '/ws' });
   let presence: PresenceApi | null = null;
   let cleanupInterval: NodeJS.Timeout | null = null;
@@ -27,7 +27,7 @@ export const initWebsocket = ({ server, logger }: InitParams) => {
 
   const broadcastTenant = (tenantId: string, payload: Record<string, unknown>) => {
     const msg = JSON.stringify(payload);
-    wss.clients.forEach(client => {
+    wss.clients.forEach((client: WebSocket) => {
       const meta = (client as WebSocket & { meta?: WsMeta }).meta;
       if (client.readyState === WebSocket.OPEN && meta?.tenantId === tenantId) {
         client.send(msg);
@@ -37,7 +37,7 @@ export const initWebsocket = ({ server, logger }: InitParams) => {
 
   const hasOpenSocket = (tenantId: string, sessionId: string, role: 'front' | 'gm') => {
     let found = false;
-    wss.clients.forEach(client => {
+    wss.clients.forEach((client: WebSocket) => {
       if (found) return;
       if (client.readyState !== WebSocket.OPEN) return;
       const meta = (client as WebSocket & { meta?: WsMeta }).meta;
@@ -58,7 +58,7 @@ export const initWebsocket = ({ server, logger }: InitParams) => {
     }, 5000);
     if (pingInterval) clearInterval(pingInterval);
     pingInterval = setInterval(() => {
-      wss.clients.forEach(client => {
+      wss.clients.forEach((client: WebSocket) => {
         const socket = client as WebSocket & { isAlive?: boolean };
         if (socket.isAlive === false) {
           socket.terminate();
@@ -70,7 +70,7 @@ export const initWebsocket = ({ server, logger }: InitParams) => {
     }, 15000);
   };
 
-  wss.on('connection', (ws, req) => {
+  wss.on('connection', (ws: WebSocket, req: any) => {
     (ws as WebSocket & { isAlive?: boolean }).isAlive = true;
     ws.on('pong', () => {
       (ws as WebSocket & { isAlive?: boolean }).isAlive = true;
@@ -103,7 +103,7 @@ export const initWebsocket = ({ server, logger }: InitParams) => {
       return false;
     };
 
-    ws.on('message', data => {
+    ws.on('message', (data: RawData) => {
       let msg: any = null;
       try {
         msg = JSON.parse(data.toString());
