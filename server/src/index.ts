@@ -1489,6 +1489,9 @@ app.get('/auth/discord/login', async (req, reply) => {
   }
   const state = cryptoRandomState();
   req.session.oauthState = state;
+  await new Promise<void>((resolve, reject) => {
+    req.session.save(err => (err ? reject(err) : resolve()));
+  });
 
   const url = new URL('https://discord.com/api/oauth2/authorize');
   url.searchParams.set('client_id', clientId);
