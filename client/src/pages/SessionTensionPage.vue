@@ -200,7 +200,7 @@ const tensionSaving = ref(false);
 const tenantAudioNames = computed(() => new Set(tenantAudio.value.map(a => a.name)));
 
 const loadSession = async () => {
-  const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, { credentials: 'include' });
+  const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), { credentials: 'include' });
   if (!res.ok) throw new Error('session');
   const data = await res.json();
   tensionEnabled.value = data.tensionEnabled ?? defaultTension.enabled;
@@ -211,7 +211,7 @@ const loadSession = async () => {
 };
 
 const loadAudio = async () => {
-  const res = await fetch('http://localhost:3100/api/assets?type=audio', { credentials: 'include' });
+  const res = await fetch(api('/api/assets?type=audio'), { credentials: 'include' });
   tenantAudio.value = res.ok ? await res.json() : [];
 };
 
@@ -236,7 +236,7 @@ const saveSessionTension = async () => {
       tensionLabels: { ...tensionLabels },
       tensionAudio: { ...tensionAudio }
     };
-    const res = await fetch(`http://localhost:3100/api/sessions/${encodeURIComponent(sessionId.value)}`, {
+    const res = await fetch(api(`/api/sessions/${encodeURIComponent(sessionId.value)}`), {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',

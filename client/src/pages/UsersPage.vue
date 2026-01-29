@@ -220,6 +220,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { api } from '../lib/api';
 
 type UserRow = {
   id: string;
@@ -338,7 +339,7 @@ const saveGlobalQuota = async () => {
     return;
   }
   try {
-    const res = await fetch('http://localhost:3100/api/admin/global-quota', {
+    const res = await fetch(api('/api/admin/global-quota'), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -380,7 +381,7 @@ const saveTenantQuota = async () => {
     payload = num;
   }
   try {
-    const res = await fetch('http://localhost:3100/api/admin/tenant-quota', {
+    const res = await fetch(api('/api/admin/tenant-quota'), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -388,7 +389,7 @@ const saveTenantQuota = async () => {
     });
     if (!res.ok) throw new Error();
     closeQuotaModal();
-    const usersRes = await fetch('http://localhost:3100/api/admin/users', { credentials: 'include' });
+    const usersRes = await fetch(api('/api/admin/users'), { credentials: 'include' });
     if (usersRes.ok) users.value = await usersRes.json();
   } catch {
     quotaModal.value.error = t('users.tenantQuota.updateError');
@@ -411,13 +412,13 @@ const confirmDelete = async () => {
   const user = confirmModal.value.user;
   if (!user) return;
   try {
-    const res = await fetch(`http://localhost:3100/api/admin/user/${encodeURIComponent(user.id)}`, {
+    const res = await fetch(api(`/api/admin/user/${encodeURIComponent(user.id)}`), {
       method: 'DELETE',
       credentials: 'include'
     });
     if (!res.ok) throw new Error();
     closeConfirm();
-    const usersRes = await fetch('http://localhost:3100/api/admin/users', { credentials: 'include' });
+    const usersRes = await fetch(api('/api/admin/users'), { credentials: 'include' });
     if (usersRes.ok) users.value = await usersRes.json();
   } catch {
     confirmModal.value.message = t('users.confirm.error');
@@ -428,8 +429,8 @@ onMounted(async () => {
   loading.value = true;
   try {
     const [usersRes, quotaRes] = await Promise.all([
-      fetch('http://localhost:3100/api/admin/users', { credentials: 'include' }),
-      fetch('http://localhost:3100/api/admin/global-quota', { credentials: 'include' })
+      fetch(api('/api/admin/users'), { credentials: 'include' }),
+      fetch(api('/api/admin/global-quota'), { credentials: 'include' })
     ]);
     if (!usersRes.ok) throw new Error('users');
     users.value = await usersRes.json();

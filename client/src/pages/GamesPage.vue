@@ -112,6 +112,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { api } from '../lib/api';
 
 type RunState = {
   tenantId: string;
@@ -150,7 +151,7 @@ const fetchStates = async () => {
   loading.value = true;
   error.value = '';
   try {
-    const res = await fetch('http://localhost:3100/api/admin/run-states', { credentials: 'include' });
+    const res = await fetch(api('/api/admin/run-states'), { credentials: 'include' });
     if (!res.ok) throw new Error('states');
     const data = await res.json();
     states.value = normalizeGroups(data);

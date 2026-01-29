@@ -128,6 +128,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { api } from '../../lib/api';
 
 const props = withDefaults(
   defineProps<{
@@ -276,7 +277,7 @@ const importFromPixabay = async (url: string) => {
 
 const checkPixabayKey = async () => {
   try {
-    const res = await fetch('http://localhost:3100/api/assets/pixabay?q=', { credentials: 'include' });
+    const res = await fetch(api('/api/assets/pixabay?q='), { credentials: 'include' });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
       if (data?.error === 'Missing PIXABAY_KEY') {
@@ -300,7 +301,7 @@ const searchPixabay = async (allowEmpty = false) => {
   pixabayMessage.value = '';
   try {
     const res = await fetch(
-      `http://localhost:3100/api/assets/pixabay?q=${encodeURIComponent(pixabayQuery.value.trim())}`,
+      api(`/api/assets/pixabay?q=${encodeURIComponent(pixabayQuery.value.trim())}`),
       { credentials: 'include' }
     );
     const data = await res.json();
