@@ -23,10 +23,11 @@ const clientDistDir = path.resolve(__dirname, '..', '..', 'client', 'dist');
 dotenv.config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 const prisma = new PrismaClient();
-const app = Fastify({ logger: true });
+const app = Fastify({ logger: true, trustProxy: true });
 
 const isProd = process.env.NODE_ENV === 'production';
 const sessionSecret = process.env.SESSION_SECRET || 'dev-session-secret';
+const cookiePath = process.env.COOKIE_PATH || process.env.VITE_BASE_PATH || '/3monkeys';
 
 const { broadcastTenant, attachPresence } = initWebsocket({ server: app.server, logger: app.log });
 const minRunDurationMs = 2 * 60 * 1000;
@@ -129,11 +130,12 @@ await app.register(cors, {
 await app.register(cookie);
 await app.register(session, {
   secret: sessionSecret,
-  cookieName: 'sid',
+  cookieName: 'sid_3monkeys',
   cookie: {
     httpOnly: true,
     sameSite: 'lax',
-    secure: isProd
+    secure: isProd,
+    path: cookiePath
   }
 });
 
