@@ -158,7 +158,8 @@ async function generateThumbnail(sourcePath: string, filename: string, targetDir
 }
 await app.register(fastifyStatic, {
   root: uploadsDir,
-  prefix: '/uploads/'
+  prefix: '/uploads/',
+  decorateReply: false
 });
 await app.register(fastifyStatic, {
   root: clientDistDir,
