@@ -100,6 +100,9 @@ const usersPath = args.get('users') || path.join(sourceRoot, 'users.json');
 const tenantsDir = args.get('tenants') || path.join(sourceRoot, 'tenants');
 const dryRun = args.get('dry-run') === 'true';
 const onlyTenant = args.get('tenant') || '';
+const logDry = (message: string) => {
+  if (dryRun) console.log(message);
+};
 
 const readJson = <T>(filePath: string): T | null => {
   if (!fs.existsSync(filePath)) return null;
@@ -152,7 +155,10 @@ const mapSortOrder = (names: string[], orderList: string[]) => {
 };
 
 const ensureTenant = async (user: LegacyUser, name: string, quotaMB?: number | null) => {
-  if (dryRun) return null;
+  if (dryRun) {
+    logDry(`[dry-run] tenant create name="${name}" quotaMB=${quotaMB ?? 'null'}`);
+    return null;
+  }
   const existingUser = await prisma.user.findUnique({
     where: { email: user.email },
     include: { tenant: true }
@@ -178,7 +184,10 @@ const upsertUser = async (user: LegacyUser, tenantId: string) => {
   const createdAt = user.createdAt ? new Date(user.createdAt) : undefined;
   const lastLogin = user.lastLogin ? new Date(user.lastLogin) : undefined;
   const role = user.admin ? 'ADMIN' : 'USER';
-  if (dryRun) return null;
+  if (dryRun) {
+    logDry(`[dry-run] user upsert email="${user.email}" role=${role} tenantId=${tenantId}`);
+    return null;
+  }
   const saved = await prisma.user.upsert({
     where: { email: user.email },
     create: {
@@ -209,7 +218,10 @@ const importScenarios = async (tenantId: string, tenantDir: string, scenarioMap:
   const scenarioDir = path.join(tenantDir, 'scenario');
   const scenarios = loadJsonFiles<LegacyScenario>(scenarioDir);
   for (const sc of scenarios) {
-    if (dryRun) continue;
+    if (dryRun) {
+      logDry(`[dry-run] scenario create tenantId=${tenantId} title="${sc.title || 'Scenario'}"`);
+      continue;
+    }
     const created = await prisma.scenario.create({
       data: {
         tenantId,
@@ -227,7 +239,10 @@ const importSessions = async (tenantId: string, tenantDir: string, scenarioMap: 
   const sessionDir = path.join(tenantDir, 'sessions');
   const sessions = loadJsonFiles<LegacySession>(sessionDir);
   for (const sess of sessions) {
-    if (dryRun) continue;
+    if (dryRun) {
+      logDry(`[dry-run] session create tenantId=${tenantId} title="${sess.title || 'Session'}" scenarioId=${sess.parentScenario || 'null'}`);
+      continue;
+    }
     const created = await prisma.session.create({
       data: {
         tenantId,
@@ -285,7 +300,10 @@ const importScenes = async (tenantId: string, tenantDir: string, sessionMap: Map
         noteId = note.id;
       }
     }
-    if (dryRun) continue;
+    if (dryRun) {
+      logDry(`[dry-run] scene create tenantId=${tenantId} title="${scene.title || 'Scene'}" sessionId=${scene.parentSession || 'null'}`);
+      continue;
+    }
     const legacySessionId = scene.parentSession || '';
     const legacyScenarioId = sessionScenario.get(legacySessionId) || null;
     await prisma.scene.create({
@@ -325,7 +343,10 @@ const importAssets = async (tenantId: string, tenantDir: string) => {
     if (!dryRun) ensureUploadCopy(fromPath, toPath);
     const stat = fs.statSync(fromPath);
     const thumbUrl = null;
-    if (dryRun) continue;
+    if (dryRun) {
+      logDry(`[dry-run] asset image name="${name}" size=${stat.size} hidden=${imageHidden.has(name)} sortOrder=${imageSort.get(name) || 0}`);
+      continue;
+    }
     const existing = await prisma.asset.findFirst({
       where: { tenantId, type: 'image', name }
     });
@@ -365,7 +386,10 @@ const importAssets = async (tenantId: string, tenantDir: string) => {
     const toPath = path.join(tenantUploadDir, name);
     if (!dryRun) ensureUploadCopy(fromPath, toPath);
     const stat = fs.statSync(fromPath);
-    if (dryRun) continue;
+    if (dryRun) {
+      logDry(`[dry-run] asset audio name="${name}" size=${stat.size} sortOrder=${audioSort.get(name) || 0}`);
+      continue;
+    }
     const existing = await prisma.asset.findFirst({
       where: { tenantId, type: 'audio', name }
     });
@@ -401,7 +425,10 @@ const importRunStates = async (tenantId: string, tenantDir: string, sessionMap: 
     const nextSessionId = sessionMap.get(entry.sessionId) || null;
     if (!nextSessionId) continue;
     for (const run of entry.runs || []) {
-      if (dryRun) continue;
+      if (dryRun) {
+        logDry(`[dry-run] run-state sessionId=${entry.sessionId} front=${run.front || 'offline'} gm=${run.gm || 'offline'}`);
+        continue;
+      }
       await prisma.sessionRunState.create({
         data: {
           tenantId,
